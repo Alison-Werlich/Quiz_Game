@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="Imagem">
+    <file>Imagens/images-removebg-preview.png</file>
+    <file>Imagens/Diploma.png</file>
+    <file>Imagens/Diploma_2.png</file>
+    <file>Imagens/Folha.jpg</file>
+    <file>Imagens/Folha_2.png</file>
+    <file>Imagens/Formandos.png</file>
+    <file>Imagens/Formandos_2.png</file>
+    <file>Imagens/Logo.png</file>
+    <file>Imagens/Unigranrio_com_logo.png</file>
+    <file>Imagens/Unigranrio_icone.png</file>
+    <file>Imagens/Unigranrio_com_logo-removebg-preview.png</file>
+    <file>Imagens/Unigranrio_inicio.png</file>
+  </qresource>
+</RCC>
