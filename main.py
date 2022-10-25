@@ -9,6 +9,7 @@ from random import randint
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
+
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -26,11 +27,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_sair.clicked.connect(lambda:sys.exit())
 
         self.btn_novo_jogo.clicked.connect(lambda: self.iniciar_game())
+
+
+        self.resposta_1.clicked.connect(lambda: self.confirmar_resposta("1"))
+        self.resposta_2.clicked.connect(lambda: self.confirmar_resposta("2"))
+        self.resposta_3.clicked.connect(lambda: self.confirmar_resposta("3"))
+        self.resposta_4.clicked.connect(lambda: self.confirmar_resposta("4"))
+
         ###################################################################
 
 
     def iniciar_game(self):
 
+        self.erros = []
         self.num_perguntas = 0
         db = Data_base()
         self.perguntas_portugues = db.criar_lista_perguntas('portugues')
@@ -44,9 +53,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def escolha_perguntas(self):
 
+        self.num_perguntas += 1
+        self.label_n_pergunta.setText(f'     Pergunta {self.num_perguntas} de 30')
+
         if self.num_perguntas < 7:
-            pergunta = self.perguntas_portugues[randint(0, len(self.perguntas_portugues) - 1)]
-            self.perguntas_portugues.remove(pergunta)
+            self.pergunta = self.perguntas_portugues[randint(0, len(self.perguntas_portugues) - 1)]
+            self.perguntas_portugues.remove(self.pergunta)
 
         elif self.num_perguntas < 13:
             pass
@@ -57,17 +69,116 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif self.num_perguntas <=30:
             pass
         else:
-            pass
+            self.fim_jogo()
 
-        self.label_pergunta.setText(pergunta[1])
-        self.resposta_1.setText(pergunta[2])
-        self.resposta_2.setText(pergunta[3])
-        self.resposta_3.setText(pergunta[4])
-        self.resposta_4.setText(pergunta[5])
+        self.label_pergunta.setText(self.pergunta[1])
+        self.label_pergunta.setStyleSheet(u"""
+            background-color:rgb(34, 60, 122);
+	        color: rgb(255,255,255);
+	        font: 14pt;
+	        border: 2px solid;
+	        border-radius: 15px;
+	        border-color: black""")
+        self.label_pergunta.setWordWrap(True)
 
-        self.resposta_certa = pergunta[6]
+        self.resposta_1.setText(self.pergunta[2])
+        self.resposta_2.setText(self.pergunta[3])
+        self.resposta_3.setText(self.pergunta[4])
+        self.resposta_4.setText(self.pergunta[5])
 
-        self.num_perguntas += 1
+        self.resposta_certa = self.pergunta[6]
+
+
+    def confirmar_resposta(self, s):
+
+        if self.num_perguntas > 0 and self.num_perguntas <= 30:
+
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            msg.setText('Confirma resposta selecionada?')
+            resp = msg.exec_()
+
+            if resp == QMessageBox.Yes:
+
+                if s == self.resposta_certa:     # se resposta certa
+
+                    if s == "1":
+                        r_correta = self.resposta_1
+                    elif s == "2":
+                        r_correta = self.resposta_2
+                    elif s == "3":
+                        r_correta = self.resposta_3
+                    elif s == "4":
+                        r_correta = self.resposta_4
+
+                    r_correta.setStyleSheet(u"""
+                                    QCommandLinkButton{
+                                        background-color:rgb(0, 200, 0);
+                                        color: rgb(0,0,0);
+                                        border: 2px solid;
+                                        border-radius: 15px;
+                                        border-color: black
+                                    }""")
+
+                    msg = QMessageBox()
+                    msg.setWindowTitle('Loading Python Quiz')
+                    msg.setText('Resposta Certa!')
+                    msg.exec_()
+
+                else:                            #  se resposta errrada
+
+                    self.erros.append(self.pergunta[7])
+
+                    if self.resposta_certa == "1":
+                        r_correta = self.resposta_1
+                    elif self.resposta_certa == "2":
+                        r_correta = self.resposta_2
+                    elif self.resposta_certa == "3":
+                        r_correta = self.resposta_3
+                    elif self.resposta_certa == "4":
+                        r_correta = self.resposta_4
+
+                    r_correta.setStyleSheet(u"""
+                                    QCommandLinkButton{
+                                        background-color:rgb(250, 0, 0);
+                                        color: rgb(0,0,0);
+                                        border: 2px solid;
+                                        border-radius: 15px;
+                                        border-color: black
+                                    }""")
+
+                    msg = QMessageBox()
+                    msg.setWindowTitle('Loading Python Quiz')
+                    msg.setText('Resposta Errada!')
+                    msg.exec_()
+
+                self.formatar_respostas()
+                self.escolha_perguntas()
+
+
+    def formatar_respostas(self):
+
+        lista = [self.resposta_1, self.resposta_2, self.resposta_3, self.resposta_4]
+
+        for item in lista:
+            item.setStyleSheet(u"""
+                                    QCommandLinkButton{
+                                        background-color:rgb(34, 60, 122);
+                                        color: rgb(255,255,255);
+                                        border: 2px solid;
+                                        border-radius: 15px;
+                                        border-color: black
+                                    }
+                                    QCommandLinkButton:hover{
+                                        color: rgb(34, 60, 122);
+                                        background-color: rgb(0,0,0);
+                                    }""")
+
+
+    def fim_jogo(self):
+
+        pass
 
 
 if __name__ == '__main__':

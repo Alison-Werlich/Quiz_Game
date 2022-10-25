@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pyside2-uic Interface_Grafica.ui -o ui_interface_grafica.py
 
 ################################################################################
 ## Form generated from reading UI file 'Interface_Grafica.ui'
@@ -337,7 +336,8 @@ class Ui_MainWindow(object):
 "	color: rgb(255,255,255);\n"
 "	border: 2px solid;\n"
 "	border-radius: 15px;\n"
-"	border-color: black\n"
+"	border-color: black;\n"
+"	font: 14px\n"
 "\n"
 "\n"
 "")
