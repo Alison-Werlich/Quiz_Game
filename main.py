@@ -44,7 +44,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         db = Data_base()
         self.perguntas_portugues = db.criar_lista_perguntas('portugues')
         self.perguntas_matematica = db.criar_lista_perguntas('matematica')
-        self.perguntas_ciencias = db.criar_lista_perguntas('ciencias')
+        self.perguntas_ciencia = db.criar_lista_perguntas('ciencia')
         self.perguntas_historia = db.criar_lista_perguntas('historia')
         self.perguntas_geofrafia = db.criar_lista_perguntas('geografia')
 
@@ -61,13 +61,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.perguntas_portugues.remove(self.pergunta)
 
         elif self.num_perguntas < 13:
-            pass
+            self.pergunta = self.perguntas_matematica[randint(0, len(self.perguntas_matematica) - 1)]
+            self.perguntas_matematica.remove(self.pergunta)
         elif self.num_perguntas < 19:
-            pass
+            self.pergunta = self.perguntas_ciencia[randint(0, len(self.perguntas_ciencia) - 1)]
+            self.perguntas_ciencia.remove(self.pergunta)
         elif self.num_perguntas < 25:
-            pass
+            self.pergunta = self.perguntas_historia[randint(0, len(self.perguntas_historia) - 1)]
+            self.perguntas_historia.remove(self.pergunta)
         elif self.num_perguntas <=30:
-            pass
+            self.pergunta = self.perguntas_geofrafia[randint(0, len(self.perguntas_geofrafia) - 1)]
+            self.perguntas_geofrafia.remove(self.pergunta)
         else:
             self.fim_jogo()
 
