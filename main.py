@@ -18,11 +18,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ###################################################################
         # Conexão entre as paginas e botoes
 
-        self.btn_iniciar.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
+        self.btn_login.clicked.connect(lambda: self.login())
+        self.btn_novo_cadastro.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Cadastro))
         self.btn_jogar.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Jogo))
+        self.btn_cadastro_voltar.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Inicial))
         self.btn_regras.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Regras))
         self.btn_voltar.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
         self.btn_voltar_2.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
+        self.btn_cadastrar.clicked.connect(lambda: self.novo_cadastro_usuario())
+
 
         self.btn_sair.clicked.connect(lambda:sys.exit())
 
@@ -35,6 +39,72 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.resposta_4.clicked.connect(lambda: self.confirmar_resposta("4"))
 
         ###################################################################
+
+
+    def login(self):
+
+        login = self.login_usuario.text()
+        senha = self.login_senha.text()
+
+        db = Data_base()
+
+        resp = db.checar_login(login, senha)
+
+        if resp == True:
+            self.Paginas.setCurrentWidget(self.Pagina_Menu)
+            self.usuario_logado = login
+
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText('Login ou senha invalido!')
+            msg.exec_()
+
+
+    def novo_cadastro_usuario(self):
+
+        nome = self.Cadastro_Nome.text()
+        sobrenome = self.Cadastro_Sobrenome.text()
+        login = self.Cadastro_Login.text()
+        senha1 = self.Cadastro_Senha_1.text()
+        senha2 = self.Cadastro_Senha_2.text()
+        db = Data_base()
+
+        if nome == '' or sobrenome == '' or login == '' or senha1 == '':
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText('Todos os campos devem ser preenchidos.')
+            msg.exec_()
+
+        elif senha1 != senha2:
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText('As senhas devem ser iguais.')
+            msg.exec_()
+            self.Cadastro_Senha_1.setText('')
+            self.Cadastro_Senha_2.setText('')
+
+        elif db.login_existente(login) == True:
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText('Login já existente, tente novamente.')
+            msg.exec_()
+            self.Cadastro_Login.setText('')
+
+        else:
+            db = Data_base()
+            db.inserir_usuario(nome, sobrenome, login, senha1)
+
+            msg = QMessageBox()
+            msg.setWindowTitle('Loading Python Quiz')
+            msg.setText('Cadastrado com sucesso')
+            msg.exec_()
+
+            self.Paginas.setCurrentWidget(self.Pagina_Inicial)
 
 
     def iniciar_game(self):
@@ -53,13 +123,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def escolha_perguntas(self):
 
+
         self.num_perguntas += 1
-        self.label_n_pergunta.setText(f'     Pergunta {self.num_perguntas} de 30')
+        if self.num_perguntas <= 30:
+            self.label_n_pergunta.setText(f'     Pergunta {self.num_perguntas} de 30')
+
 
         if self.num_perguntas < 7:
             self.pergunta = self.perguntas_portugues[randint(0, len(self.perguntas_portugues) - 1)]
             self.perguntas_portugues.remove(self.pergunta)
-
         elif self.num_perguntas < 13:
             self.pergunta = self.perguntas_matematica[randint(0, len(self.perguntas_matematica) - 1)]
             self.perguntas_matematica.remove(self.pergunta)
@@ -182,7 +254,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fim_jogo(self):
 
-        pass
+        if matematica in self.erros:
+            erros_matematica = self.erros.count(matematica)
+        else:
+            erros_matematica = 0
+        if portugues in self.erros:
+            erros_portugues = self.erros.count(portugues)
+        else:
+            erros_portugues = 0
+        if historia in self.erros:
+            erros_historia = self.erros.count(historia)
+        else:
+            erros_historia = 0
+        if geografia in self.erros:
+            erros_geografia = self.erros.count(geografia)
+        else:
+            erros_geografia = 0
+        if ciencia in self.erros:
+            erros_ciencia = self.erros.count(ciencia)
+        else:
+            erros_ciencia = 0
+
+
 
 
 if __name__ == '__main__':
