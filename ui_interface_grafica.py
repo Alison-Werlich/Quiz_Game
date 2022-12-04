@@ -18,12 +18,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
+        MainWindow.setEnabled(True)
         MainWindow.resize(1080, 720)
         MainWindow.setMinimumSize(QSize(1080, 720))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayout_4 = QVBoxLayout(self.centralwidget)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_15 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.Paginas = QStackedWidget(self.centralwidget)
         self.Paginas.setObjectName(u"Paginas")
         self.Paginas.setStyleSheet(u"\n"
@@ -827,8 +828,53 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.frame_4)
 
         self.Paginas.addWidget(self.Pagina_Jogo)
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.horizontalLayout_11 = QHBoxLayout(self.page)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalSpacer_2 = QSpacerItem(100, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
-        self.verticalLayout_4.addWidget(self.Paginas)
+        self.horizontalLayout_11.addItem(self.horizontalSpacer_2)
+
+        self.label_4 = QLabel(self.page)
+        self.label_4.setObjectName(u"label_4")
+        font5 = QFont()
+        font5.setPointSize(20)
+        self.label_4.setFont(font5)
+        self.label_4.setLayoutDirection(Qt.LeftToRight)
+        self.label_4.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+"text-align: center;\n"
+"display: flex;\n"
+"justify-content: center;\n"
+"align-items: center;")
+
+        self.horizontalLayout_11.addWidget(self.label_4)
+
+        self.BTN_voltarmenu = QPushButton(self.page)
+        self.BTN_voltarmenu.setObjectName(u"BTN_voltarmenu")
+        self.BTN_voltarmenu.setMaximumSize(QSize(251, 50))
+        self.BTN_voltarmenu.setFont(font)
+        self.BTN_voltarmenu.setStyleSheet(u"QPushButton{\n"
+"\n"
+"	background-color:rgb(34, 60, 122);\n"
+"	color: rgb(255,255,255);\n"
+"	border: 2px solid;\n"
+"	border-radius: 15px;\n"
+"	border-color: black\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	color: rgb(34, 60, 122);\n"
+"	background-color: rgb(255,255,255);\n"
+"}\n"
+"")
+
+        self.horizontalLayout_11.addWidget(self.BTN_voltarmenu)
+
+        self.Paginas.addWidget(self.page)
+
+        self.verticalLayout_15.addWidget(self.Paginas)
 
         MainWindow.setCentralWidget(self.centralwidget)
         QWidget.setTabOrder(self.Cadastro_Senha_1, self.btn_novo_jogo)
@@ -903,5 +949,7 @@ class Ui_MainWindow(object):
         self.resposta_4.setText("")
         self.btn_novo_jogo.setText(QCoreApplication.translate("MainWindow", u"NOVO JOGO", None))
         self.btn_voltar_2.setText(QCoreApplication.translate("MainWindow", u"VOLTAR AO MENU", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
+        self.BTN_voltarmenu.setText(QCoreApplication.translate("MainWindow", u"Voltar Menu", None))
     # retranslateUi
 

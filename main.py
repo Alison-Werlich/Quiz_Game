@@ -25,6 +25,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_regras.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Regras))
         self.btn_voltar.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
         self.btn_voltar_2.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
+        self.BTN_voltarmenu.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
         self.btn_cadastrar.clicked.connect(lambda: self.novo_cadastro_usuario())
 
 
@@ -53,6 +54,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if resp == True:
             self.Paginas.setCurrentWidget(self.Pagina_Menu)
             self.usuario_logado = login
+            self.label_nome_logado.setText(f'Bem Vindo(a) {login} ')
 
         else:
             msg = QMessageBox()
@@ -145,6 +147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pergunta = self.perguntas_geofrafia[randint(0, len(self.perguntas_geofrafia) - 1)]
             self.perguntas_geofrafia.remove(self.pergunta)
         else:
+            self.pergunta = ('x', 'CLIQUE EM NOVO JOGO PARA INICIAR', ' ', ' ', ' ',' ', ' ')
             self.fim_jogo()
 
         self.label_pergunta.setText(self.pergunta[1])
@@ -254,27 +257,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fim_jogo(self):
 
-        if matematica in self.erros:
-            erros_matematica = self.erros.count(matematica)
+
+        if 'matematica' in self.erros:
+            erros_matematica = self.erros.count('matematica')
         else:
             erros_matematica = 0
-        if portugues in self.erros:
-            erros_portugues = self.erros.count(portugues)
+        if 'portugues' in self.erros:
+            erros_portugues = self.erros.count('portugues')
         else:
             erros_portugues = 0
-        if historia in self.erros:
-            erros_historia = self.erros.count(historia)
+        if 'historia' in self.erros:
+            erros_historia = self.erros.count('historia')
         else:
             erros_historia = 0
-        if geografia in self.erros:
-            erros_geografia = self.erros.count(geografia)
+        if 'geografia' in self.erros:
+            erros_geografia = self.erros.count('geografia')
         else:
             erros_geografia = 0
-        if ciencia in self.erros:
-            erros_ciencia = self.erros.count(ciencia)
+        if 'ciencia' in self.erros:
+            erros_ciencia = self.erros.count('ciencia')
         else:
             erros_ciencia = 0
 
+        n_erros = len(self.erros)
+        msg = QMessageBox()
+        msg.setWindowTitle('Loading Python Quiz')
+        msg.setText(f'Voçê errou {n_erros} perguntas, sua nota foi {(30 - n_erros)/3:.2f}')
+        msg.exec_()
+
+        self.Paginas.setCurrentWidget(self.page)
+        self.label_4.setText(f'''RELATORIO DE ERROS E ACERTOS
+
+TOTAL DE ERROS {n_erros}
+NOTA POR MEDIA DE ACERTOS {(30 - n_erros)/3:.2f}
+
+
+
+NUMERO DE ERROS POR MATERIA
+
+MATEMATICA {self.erros.count("matematica")}
+PORTUGUES {self.erros.count("portugues")}
+HISTORIA {self.erros.count("historia")}
+GEOGRAFIA {self.erros.count("geografia")}
+CIENCIAS {self.erros.count("ciencia")}''')
 
 
 
