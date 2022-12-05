@@ -407,6 +407,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.label_regras = QLabel(self.frame_5)
         self.label_regras.setObjectName(u"label_regras")
+        self.label_regras.setWordWrap(True)
 
         self.verticalLayout_9.addWidget(self.label_regras)
 
@@ -930,7 +931,9 @@ class Ui_MainWindow(object):
         self.btn_sair.setText(QCoreApplication.translate("MainWindow", u"SAIR", None))
         self.label_nome_logado.setText("")
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Desconectar", None))
-        self.label_regras.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600; text-decoration: underline;\">REGRAS E INFORMA\u00c7\u00d5ES</span></p><p align=\"center\"><br/></p><p align=\"center\"><span style=\" font-size:12pt;\">REGRAS</span></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p></body></html>", None))
+        self.label_regras.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600; text-decoration: underline;\">REGRAS E INFORMA\u00c7\u00d5ES</span></p><p align=\"center\"><br/></p><p><span style=\" font-size:16pt;\">Quiz Loading Python se trata de um game no modelo quiz com o objetivo de auxiliar no estudo para vestibulares e concursos.</span></p><p><span style=\" font-size:16pt;\">Ao todo s\u00e3o 30 perguntas divididas em cinco disciplinas (Portugu\u00eas, Matem\u00e1tica, Geografia, Hist\u00f3ria e Ci\u00eancias) sendo seis perguntas de cada mat\u00e9ria por rodada.</span></p><p><span style=\" font-size:16pt;\">O jogo simula uma prova de vestibular ou concurso, onde todas as perguntas s\u00e3o de vestibulares e concursos passados.</span></p><p><span style=\" font-size:16pt;\">Ao final da partida o jogador ter\u00e1 um relat\u00f3rio contendo a quantidade de erros total e uma nota baseado na quantidade de acertos, tamb\u00e9m ser\u00e1 gerado um relat\u00f3rio detalhado por mat\u00e9ria mostrando a qu"
+                        "antidade de erros em cada mat\u00e9ria, sendo um \u00f3timo auxilio para saber onde o jogador tem maior dificuldade podendo assim focar melhor seus estudos.</span></p><p><br/></p><p><span style=\" font-size:16pt; font-weight:600; text-decoration: underline;\">Regra 01</span><span style=\" font-size:16pt;\"> - O jogador n\u00e3o poder\u00e1 fechar o programa ap\u00f3s iniciar a partida, pois o progresso n\u00e3o ser\u00e1 salvo;</span></p><p><span style=\" font-size:16pt; font-weight:600; text-decoration: underline;\">Regra 02</span><span style=\" font-size:16pt;\"> - Para avan\u00e7ar para a pr\u00f3xima pergunta, \u00e9 necess\u00e1rio responder a anterior;</span></p><p><span style=\" font-size:16pt; font-weight:600; text-decoration: underline;\">Regra 03</span><span style=\" font-size:16pt;\"> - Para jogar \u00e9 necess\u00e1rio realizar o cadastro, e logar com sua conta;</span></p><p align=\"center\"><br/><br/><span style=\" font-size:16pt;\">Boa Sorte!</span><br/></p><p align=\"justify\"><br/></p><p align="
+                        "\"justify\"><br/></p></body></html>", None))
         self.btn_voltar.setText(QCoreApplication.translate("MainWindow", u"VOLTAR AO MENU", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:48pt;\">Cadastro de Usu\u00e1rio </span></p></body></html>", None))
         self.Cadastro_Nome.setPlaceholderText(QCoreApplication.translate("MainWindow", u"   Digite Seu Primeiro Nome", None))
