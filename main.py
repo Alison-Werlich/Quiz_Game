@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_voltar_2.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
         self.BTN_voltarmenu.clicked.connect(lambda: self.Paginas.setCurrentWidget(self.Pagina_Menu))
         self.btn_cadastrar.clicked.connect(lambda: self.novo_cadastro_usuario())
-
+        self.pushButton.clicked.connect(lambda: self.logoff())
 
         self.btn_sair.clicked.connect(lambda:sys.exit())
 
@@ -107,6 +107,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             msg.exec_()
 
             self.Paginas.setCurrentWidget(self.Pagina_Inicial)
+
+
+    def logoff(self):
+
+        self.Paginas.setCurrentWidget(self.Pagina_Inicial)
+        self.login_usuario.setText('')
+        self.login_senha.setText('')
+        self.usuario_logado = ''
 
 
     def iniciar_game(self):
